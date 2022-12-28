@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, Linking } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, Linking, Platform } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { backgroundColorNavigator, borderColor, focusedColor, white } from '../../utils/assets/colors'
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
         borderColor: borderColor,
         marginHorizontal: wp(5),
         paddingTop: wp(8),
-        paddingHorizontal: wp(5)
+        paddingHorizontal: wp(5),
+        marginBottom: Platform.OS === 'android' && wp(4) 
 
     },
     containerHeader: {

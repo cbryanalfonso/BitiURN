@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, Platform } from 'react-native'
 import React, { useEffect } from 'react'
 import {
     widthPercentageToDP as wp,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: white,
         width: wp(90),
-        top: wp(20),
+        top: Platform.OS === 'ios' ?wp(20) : wp(5),
         borderWidth: 1,
         borderColor: borderColor,
         alignItems: 'center',
