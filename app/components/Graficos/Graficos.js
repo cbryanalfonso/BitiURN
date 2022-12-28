@@ -1,21 +1,23 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { LineChart, Grid } from 'react-native-svg-charts'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { getHistorico } from '../../business/api_request'
 
-const Graficos = () => {
-    const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+const Graficos = ({ dataGraph }) => {
+    
+    
     return (
-        <LineChart
-            style={{ height: 400 }}
-            data={data}
-            svg={{ stroke: 'rgb(134, 65, 244)' }}
-            contentInset={{ top: 20, bottom: 20 }}
-        >
-            <Grid />
-        </LineChart>
+            <LineChart
+                style={{ height: hp(15), backgroundColor: 'black' }}
+                data={dataGraph}
+                svg={{ stroke: '#906239', strokeWidth: 2 }}
+                contentInset={{ top: 20, bottom: 20 }}
+            >
+                <Grid />
+            </LineChart>
     )
 }
 
 export default Graficos
 
-const styles = StyleSheet.create({})
