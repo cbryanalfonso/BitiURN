@@ -15,7 +15,6 @@ export default function HomeCripto({navigation}) {
         listCripto()
         .then((res)=>{
             setData(res.coins)
-            console.log(res.coins)
         })
     }, [])
     
@@ -27,13 +26,14 @@ export default function HomeCripto({navigation}) {
                 styled={'txtTitle'}
             />
             <View style={styles.subContainer}>
-                <Header/>
                 <View style={styles.containerFlatlist}>
                     <FlatList
                         keyExtractor={keyExtractor}
                         data={data}
                         renderItem={renderItem}
                         contentContainerStyle={{paddingBottom: wp(1)}}
+                        showsVerticalScrollIndicator={false}
+                        bounces={false}
                     />
                 </View>
             </View>
@@ -52,9 +52,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: borderColor,
         marginHorizontal: wp(5),
-        marginBottom: hp(7)
+        marginBottom: hp(7),
     },
     containerFlatlist:{
         flex: 5,
+        borderTopWidth: 1, 
+        borderColor: borderColor,
+        marginTop: wp(20)
+
     }
 })
