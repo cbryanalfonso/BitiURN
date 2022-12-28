@@ -1,37 +1,42 @@
 import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { backgroundColorNavigator, borderColor, white } from '../../utils/assets/colors'
+import { backgroundColorNavigator, borderColor, focusedColor, white } from '../../utils/assets/colors'
 import TextUI from '../../components/Text/TextUI'
-import { getNews, listCripto } from '../../business/api_request'
 import CardNews from '../../components/Cards/CardNews'
+import {  useSelector } from 'react-redux'
+import Loading from '../../components/loaders/Loading'
 
-const HomeNews = ({navigation}) => {
+const HomeNews = ({ navigation }) => {
+    let dataNews = useSelector((state) => state.reducerNews.news);
     const keyExtractor = (item, index) => index.toString();
-    const renderItem = ({item, index}) => <CardNews data={item} navigation={navigation} />
-    const [data, setData] = useState([])
-    useEffect(() => {
-        getNews()
-        .then((res)=>{
-            setData(res)
-        })
-    }, [])
+    const renderItem = ({ item, index }) => <CardNews data={item} navigation={navigation} />
+   
     return (
         <SafeAreaView style={styles.container}>
             <TextUI
                 text={'Noticias'}
                 styled={'txtTitle'}
             />
-             <View style={styles.subContainer}>
+            <View style={styles.subContainer}>
                 <View style={styles.containerFlatlist}>
-                    <FlatList
-                        keyExtractor={keyExtractor}
-                        data={data}
-                        renderItem={renderItem}
-                        contentContainerStyle={{paddingBottom: wp(1)}}
-                        showsVerticalScrollIndicator={false}
-                        bounces={false}
-                    />
+                    {dataNews.length > 0 ? (
+                        <FlatList
+                            keyExtractor={keyExtractor}
+                            data={dataNews}
+                            renderItem={renderItem}
+                            contentContainerStyle={{ paddingBottom: wp(1) }}
+                            showsVerticalScrollIndicator={false}
+                            bounces={false}
+                        />
+                    ) : (
+                        <Loading
+                            color={focusedColor}
+                            heigh={hp(80)}
+                            width={"100%"}
+                        />
+                    )}
+
                 </View>
             </View>
         </SafeAreaView>
@@ -53,9 +58,9 @@ const styles = StyleSheet.create({
         marginHorizontal: wp(5),
         marginBottom: hp(7)
     },
-    containerFlatlist:{
+    containerFlatlist: {
         flex: 5,
-        borderTopWidth: 1, 
+        borderTopWidth: 1,
         borderColor: borderColor,
         marginTop: wp(20)
 

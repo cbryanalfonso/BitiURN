@@ -7,6 +7,7 @@ import CardCripto from '../../components/Cards/CardCripto'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionGetCriptos } from '../../business/actions/actionCriptos'
 import Loading from '../../components/loaders/Loading'
+import { actionGetNews } from '../../business/actions/actionNews'
 export default function HomeCripto({ navigation }) {
     let dataCripto = useSelector((state) => state.reducerCripto.info);
     const keyExtractor = (item, index) => index.toString();
@@ -14,6 +15,7 @@ export default function HomeCripto({ navigation }) {
     const dispatch = useDispatch();
 
     useLayoutEffect(() => {
+        dispatch(actionGetNews())
         dispatch(actionGetCriptos())
     }, [dispatch])
 
