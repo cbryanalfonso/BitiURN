@@ -1,24 +1,23 @@
 import { StyleSheet, SafeAreaView, View, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { backgroundColorNavigator, borderColor, white } from '../../utils/assets/colors'
-import Header from '../../components/Text/Header'
+import { backgroundColorNavigator, borderColor, focusedColor, white } from '../../utils/assets/colors'
 import TextUI from '../../components/Text/TextUI'
 import CardCripto from '../../components/Cards/CardCripto'
-import { listCripto } from '../../business/api_request'
-
-export default function HomeCripto({navigation}) {
+import { useDispatch, useSelector } from 'react-redux'
+import { actionGetCriptos } from '../../business/actions/actionCriptos'
+import Loading from '../../components/loaders/Loading'
+export default function HomeCripto({ navigation }) {
+    let dataCripto = useSelector((state) => state.reducerCripto.info);
     const keyExtractor = (item, index) => index.toString();
-    const renderItem = ({item, index}) => <CardCripto data={item} navigation={navigation} />
-    const [data, setData] = useState([])
-    useEffect(() => {
-        listCripto()
-        .then((res)=>{
-            setData(res.coins)
-        })
-    }, [])
-    
-    
+    const renderItem = ({ item, index }) => <CardCripto data={item} navigation={navigation} />
+    const dispatch = useDispatch();
+
+    useLayoutEffect(() => {
+        dispatch(actionGetCriptos())
+    }, [dispatch])
+
+
     return (
         <SafeAreaView style={styles.container}>
             <TextUI
@@ -27,14 +26,21 @@ export default function HomeCripto({navigation}) {
             />
             <View style={styles.subContainer}>
                 <View style={styles.containerFlatlist}>
-                    <FlatList
-                        keyExtractor={keyExtractor}
-                        data={data}
-                        renderItem={renderItem}
-                        contentContainerStyle={{paddingBottom: wp(1)}}
-                        showsVerticalScrollIndicator={false}
-                        bounces={false}
+                    {dataCripto.length > 0 ? (
+                        <FlatList
+                            keyExtractor={keyExtractor}
+                            data={dataCripto}
+                            renderItem={renderItem}
+                            contentContainerStyle={{ paddingBottom: wp(1) }}
+                            showsVerticalScrollIndicator={false}
+                            bounces={false}
+                        />
+                    ) : <Loading
+                        color={focusedColor}
+                        heigh={hp(80)}
+                        width={"100%"}
                     />
+                    }
                 </View>
             </View>
         </SafeAreaView>
@@ -54,9 +60,9 @@ const styles = StyleSheet.create({
         marginHorizontal: wp(5),
         marginBottom: hp(7),
     },
-    containerFlatlist:{
+    containerFlatlist: {
         flex: 5,
-        borderTopWidth: 1, 
+        borderTopWidth: 1,
         borderColor: borderColor,
         marginTop: wp(20)
 
