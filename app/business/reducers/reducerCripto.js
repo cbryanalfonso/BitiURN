@@ -1,7 +1,13 @@
-import { GET_CRIPTOS, GET_CRIPTOS_SUCCESS } from "../actions/actionCriptos";
+import {
+  GET_CRIPTOS,
+  GET_CRIPTOS_HISTORY_REQUEST,
+  GET_CRIPTOS_HISTORY_SUCCESS,
+  GET_CRIPTOS_SUCCESS
+} from "../actions/actionCriptos";
 
 const stateUsuario = {
-  info: []
+  info: [],
+  historico: []
 }
 
 export const reducerCripto = (state = stateUsuario, action) => {
@@ -14,6 +20,15 @@ export const reducerCripto = (state = stateUsuario, action) => {
       return {
         ...state,
         info: action.criptos,
+      };
+    case GET_CRIPTOS_HISTORY_REQUEST:
+      return {
+        ...state,
+      };
+    case GET_CRIPTOS_HISTORY_SUCCESS:
+      return {
+        ...state,
+        historico: action.criptos,
       };
     default:
       return state

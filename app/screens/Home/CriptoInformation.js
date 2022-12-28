@@ -1,30 +1,30 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, Linking, Platform } from 'react-native'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { StyleSheet, View, SafeAreaView, Linking, Platform } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { backgroundColorNavigator, borderColor, focusedColor, white } from '../../utils/assets/colors'
 import TextUI from '../../components/Text/TextUI'
-import useNumber from '../../customHooks/useNumber/useNumber'
 import ButtonIcon from '../../components/Buttons/ButtonIcon'
 import Graficos from '../../components/Graficos/Graficos'
-import { getHistorico } from '../../business/api_request'
 import Loading from '../../components/loaders/Loading'
 import CardCripto from '../../components/Cards/CardCripto'
+import { useDispatch, useSelector } from 'react-redux'
+import { actionGetCriptosHistorico } from '../../business/actions/actionCriptos'
 
 const CriptoInformation = ({ route }) => {
     const data = route?.params?.data
-    const { icon, price, twitterUrl, websiteUrl, id } = data;
-    const { dosDecimales } = useNumber();
+    const { twitterUrl, websiteUrl, id } = data;
+    let historicoCripto = useSelector((state) => state.reducerCripto.historico);
     const [datas, setDatas] = useState([])
     const dataGraph = [];
+    const dispatch = useDispatch();
+
     useLayoutEffect(() => {
-        getHistorico(id)
-            .then((res) => {
-                res.map((i) => {
-                    dataGraph.push(i[1])
-                })
-                setDatas(dataGraph)
-            })
-    }, []);
+        dispatch(actionGetCriptosHistorico(id))
+        historicoCripto.map((i) => {
+            dataGraph.push(i[1])
+        })
+        setDatas(dataGraph)
+    }, [dispatch]);
     return (
         <SafeAreaView style={styles.containerHeader}>
             <TextUI
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         marginHorizontal: wp(5),
         paddingTop: wp(8),
         paddingHorizontal: wp(5),
-        marginBottom: Platform.OS === 'android' && wp(4) 
+        marginBottom: Platform.OS === 'android' && wp(4)
 
     },
     containerHeader: {
