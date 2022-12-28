@@ -8,17 +8,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actionGetCriptos } from '../../business/actions/actionCriptos'
 import Loading from '../../components/loaders/Loading'
 import { actionGetNews } from '../../business/actions/actionNews'
+import useCriptos from '../../customHooks/useCriptos/useCriptos'
 export default function HomeCripto({ navigation }) {
     let dataCripto = useSelector((state) => state.reducerCripto.info);
     const keyExtractor = (item, index) => index.toString();
     const renderItem = ({ item, index }) => <CardCripto data={item} navigation={navigation} />
-    const dispatch = useDispatch();
+    
+    const {isLoading, handleLoadMore} = useCriptos();
 
-    useLayoutEffect(() => {
-        dispatch(actionGetNews())
-        dispatch(actionGetCriptos())
-    }, [dispatch])
-
+    const renderFooter = ({ item }) => {
+        return (
+            <>
+                {isLoading ? (
+                   <Loading
+                   color={focusedColor}
+                   heigh={hp(20)}
+                   width={"100%"}
+               />
+                ) : null}
+            </>
+        )
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -36,6 +46,9 @@ export default function HomeCripto({ navigation }) {
                             contentContainerStyle={{ paddingBottom: wp(1) }}
                             showsVerticalScrollIndicator={false}
                             bounces={false}
+                            ListFooterComponent={renderFooter}
+                            onEndReached={handleLoadMore}
+                            onEndReachedThreshold={0.5}
                         />
                     ) : <Loading
                         color={focusedColor}
