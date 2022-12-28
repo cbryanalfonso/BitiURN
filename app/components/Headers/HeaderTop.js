@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView, Platform } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, Platform, Dimensions } from 'react-native'
 import React, { useEffect } from 'react'
 import {
     widthPercentageToDP as wp,
@@ -7,6 +7,8 @@ import {
 import TextUI from '../Text/TextUI';
 import { borderColor, white } from '../../utils/assets/colors';
 import ButtonIcon from '../Buttons/ButtonIcon';
+const windowHeight = Dimensions.get('window').height;
+
 const HeaderTop = ({ navigation, data }) => {
    
     const {name} = data;
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: white,
         width: wp(90),
-        top: Platform.OS === 'ios' ?wp(20) : wp(5),
+        top: (Platform.OS === 'ios' && windowHeight > 800 ) ? wp(20) : windowHeight < 750 ? wp(12): wp(7),
         borderWidth: 1,
         borderColor: borderColor,
         alignItems: 'center',
