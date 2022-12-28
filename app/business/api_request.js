@@ -1,10 +1,10 @@
 import axios from "axios";
 
 
-export const listCripto = () => {
+export const listCripto = (limit) => {
   const config = {
     method: 'get',
-    url: 'https://api.coinstats.app/public/v1/coins?skip=0&limit=20&currency=USD',
+    url: `https://api.coinstats.app/public/v1/coins?skip=0&limit=${limit}&currency=MXN`,// cambiar currency,
     headers: {}
   };
 
@@ -19,7 +19,6 @@ export const listCripto = () => {
         reject(error.response);
       });
   });
-
 }
 
 export const getHistorico = (id) => {
