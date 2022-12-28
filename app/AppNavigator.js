@@ -11,7 +11,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { backgroundColorNavigator, borderColor, focusedColor, white } from './utils/assets/colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import CriptoInformation from './screens/Home/CriptoInformation';
 import HeaderTop from './components/Headers/HeaderTop';
 
@@ -22,7 +22,7 @@ const AppNavigator = () => {
   const BottomTabs = ({ navigation }) => (
     <Tab.Navigator
       screenOptions={({ route, }) => ({
-        tabBarIcon: ({ color,focused }) => mostrarIcono(route, color, focused),
+        // tabBarIcon: ({ color,focused }) => mostrarIcono(route, color, focused),
         tabBarStyle: styles.tabBarStyle,
         tabBarActiveTintColor: focusedColor,
         tabBarInactiveTintColor: "#c0bfc1"
@@ -77,7 +77,7 @@ const AppNavigator = () => {
   )
   return (
     <NavigationContainer>
-      <TabNavigation />
+      <TabNavigation/>
     </NavigationContainer>
   )
 }

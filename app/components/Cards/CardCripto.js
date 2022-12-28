@@ -33,13 +33,13 @@ const CardCripto = ({ data, navigation }) => {
           styled={'txtTitleCripto'}
         />
       </View>
-      <ButtonIcon
+      {/* <ButtonIcon
         nameIcon={"ios-information-circle-outline"}
         style={'iconInformation'}
         onPress={() => { navigation.navigate('CriptoInformation',{
           data: data,
         }) }}
-      />
+      /> */}
     </View>
   )
 }
