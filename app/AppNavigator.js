@@ -11,9 +11,10 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { backgroundColorNavigator, borderColor, focusedColor, white } from './utils/assets/colors';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import CriptoInformation from './screens/Home/CriptoInformation';
 import HeaderTop from './components/Headers/HeaderTop';
+import HeaderHome from './components/Headers/HeaderHome';
 
 
 const AppNavigator = () => {
@@ -22,7 +23,7 @@ const AppNavigator = () => {
   const BottomTabs = ({ navigation }) => (
     <Tab.Navigator
       screenOptions={({ route, }) => ({
-        // tabBarIcon: ({ color,focused }) => mostrarIcono(route, color, focused),
+        tabBarIcon: ({ color,focused }) => mostrarIcono(route, color, focused),
         tabBarStyle: styles.tabBarStyle,
         tabBarActiveTintColor: focusedColor,
         tabBarInactiveTintColor: "#c0bfc1"
@@ -36,8 +37,8 @@ const AppNavigator = () => {
   const ifTab = (name, component, navigation) => {
     return (
       <Tab.Screen name={name} component={component} options={{
-        title: name, headerShown: false,
-
+        // title: name, headerShown: false,
+        header: () => <HeaderHome  navigation={navigation} data={name} />,
       }} />
     );
   };
@@ -49,19 +50,9 @@ const AppNavigator = () => {
       <Stack.Screen
         name="Tabs"
         component={BottomTabs}
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle: {
-            backgroundColor: backgroundColorNavigator,
-          },
-          headerLeft: (props) => (
-            <>
-            </>),
-          headerRight: (props) => (
-            <></>
-          ),
-          headerTransparent: true,
-
+        options={({ navigation, route }) => ({
+         
+          headerShown: false,
         })}
       />
       <Stack.Screen
