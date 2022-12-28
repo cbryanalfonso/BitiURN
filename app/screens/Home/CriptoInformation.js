@@ -1,17 +1,30 @@
 import { StyleSheet, Text, View, SafeAreaView, Image, Linking } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
-import { backgroundColorNavigator, borderColor, white } from '../../utils/assets/colors'
+import { backgroundColorNavigator, borderColor, focusedColor, white } from '../../utils/assets/colors'
 import TextUI from '../../components/Text/TextUI'
 import useNumber from '../../customHooks/useNumber/useNumber'
 import ButtonIcon from '../../components/Buttons/ButtonIcon'
 import Graficos from '../../components/Graficos/Graficos'
+import { getHistorico } from '../../business/api_request'
+import Loading from '../../components/loaders/Loading'
+import CardCripto from '../../components/Cards/CardCripto'
 
 const CriptoInformation = ({ route }) => {
     const data = route?.params?.data
-
-    const { icon, price, twitterUrl, websiteUrl } = data
+    const { icon, price, twitterUrl, websiteUrl, id } = data;
     const { dosDecimales } = useNumber();
+    const [datas, setDatas] = useState([])
+    const dataGraph = [];
+    useLayoutEffect(() => {
+        getHistorico(id)
+            .then((res) => {
+                res.map((i) => {
+                    dataGraph.push(i[1])
+                })
+                setDatas(dataGraph)
+            })
+    }, []);
     return (
         <SafeAreaView style={styles.containerHeader}>
             <TextUI
@@ -21,23 +34,21 @@ const CriptoInformation = ({ route }) => {
             <View style={styles.container}>
                 <View style={styles.subContainer}>
                     <View style={styles.containerInfo}>
-                        <Image
-                            source={{ uri: icon }}
-                            style={styles.img}
-                            resizeMode={'contain'}
+                        <CardCripto
+                            data={data}
+                            showIcon={false}
                         />
-                        <View style={{ justifyContent: 'center' }}>
-                            <TextUI
-                                text={"Precio"}
-                                styled={'txtTitleCripto'}
-                            />
-                            <TextUI
-                                text={`$ ${dosDecimales(price)} MXN`}
-                                styled={'txtTitleCripto'}
-                            />
-                        </View>
                     </View>
-                    <Graficos/>
+                    <View style={styles.graph}>
+                        {datas.length > 0 ? <Graficos dataGraph={datas} /> :
+                            <Loading
+                                color={focusedColor}
+                                heigh={hp(15)}
+                                width={"100%"}
+                            />
+                        }
+                    </View>
+
                     <View style={styles.containerSN}>
                         <ButtonIcon
                             nameIcon={'ios-logo-twitter'}
@@ -91,11 +102,14 @@ const styles = StyleSheet.create({
     },
     containerInfo: {
         flexDirection: 'row',
-        marginTop: wp(5)
+        marginTop: wp(2)
     },
     containerSN: {
-        marginVertical: wp(5),
+        marginVertical: wp(4),
         paddingVertical: wp(2),
         flexDirection: 'row',
+    },
+    graph: {
+        marginVertical: wp(4)
     }
 })
