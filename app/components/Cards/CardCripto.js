@@ -7,7 +7,7 @@ import ButtonIcon from '../Buttons/ButtonIcon'
 import useNumber from '../../customHooks/useNumber/useNumber'
 
 
-const CardCripto = ({ data, navigation }) => {
+const CardCripto = ({ data, navigation, showIcon = true }) => {
 
   const {
     name,
@@ -17,7 +17,7 @@ const CardCripto = ({ data, navigation }) => {
   const { dosDecimales } = useNumber();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{borderWidth: showIcon ? 1 : 0}]}>
       <Image
         source={{ uri: icon }}
         style={styles.img}
@@ -33,13 +33,15 @@ const CardCripto = ({ data, navigation }) => {
           styled={'txtTitleCripto'}
         />
       </View>
-      <ButtonIcon
+      {showIcon && <ButtonIcon
         nameIcon={"ios-information-circle-outline"}
         style={'iconInformation'}
-        onPress={() => { navigation.navigate('CriptoInformation',{
-          data: data,
-        }) }}
-      />
+        onPress={() => {
+          navigation.navigate('CriptoInformation', {
+            data: data,
+          })
+        }}
+      />}
     </View>
   )
 }
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     backgroundColor: white,
-    borderWidth: 1,
     borderColor: borderColor,
     paddingVertical: wp(2),
     paddingHorizontal: wp(3),
