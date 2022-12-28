@@ -1,13 +1,38 @@
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { backgroundColorNavigator, borderColor, white } from '../../utils/assets/colors'
+import TextUI from '../../components/Text/TextUI'
+import { getNews, listCripto } from '../../business/api_request'
+import CardNews from '../../components/Cards/CardNews'
 
-const HomeNews = () => {
+const HomeNews = ({navigation}) => {
+    const keyExtractor = (item, index) => index.toString();
+    const renderItem = ({item, index}) => <CardNews data={item} navigation={navigation} />
+    const [data, setData] = useState([])
+    useEffect(() => {
+        getNews()
+        .then((res)=>{
+            setData(res)
+        })
+    }, [])
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Listado de criptos</Text>
-            <View style={styles.subContainer}>
+            <TextUI
+                text={'Noticias'}
+                styled={'txtTitle'}
+            />
+             <View style={styles.subContainer}>
+                <View style={styles.containerFlatlist}>
+                    <FlatList
+                        keyExtractor={keyExtractor}
+                        data={data}
+                        renderItem={renderItem}
+                        contentContainerStyle={{paddingBottom: wp(1)}}
+                        showsVerticalScrollIndicator={false}
+                        bounces={false}
+                    />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -26,6 +51,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: borderColor,
         marginHorizontal: wp(5),
-        marginBottom: hp(3)
+        marginBottom: hp(7)
+    },
+    containerFlatlist:{
+        flex: 5,
+        borderTopWidth: 1, 
+        borderColor: borderColor,
+        marginTop: wp(20)
+
     }
 })
