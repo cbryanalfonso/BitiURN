@@ -56,7 +56,7 @@ export const getNews = () => {
     axios(config)
       .then((response) => {
         if (response.status === 200) {
-          resolve(response.data.chart);
+          resolve(response.data.news);
         }
       })
       .catch((error) => {
