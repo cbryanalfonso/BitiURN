@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import React from 'react'
 import { borderColor } from '../../utils/assets/colors';
 
@@ -11,7 +11,7 @@ const ButtonIcon = ({ nameIcon, sizeIcon = wp(8), color = '#090a0b', onPress, ad
             onPress={onPress}
             style={[getStyleButton(style), addStyle && addStyle]}
         >
-            {/* <Icon name={nameIcon} size={sizeIcon} color={color} /> */}
+            <Icon name={nameIcon} size={sizeIcon} color={color} />
         </TouchableOpacity>
     )
 }
