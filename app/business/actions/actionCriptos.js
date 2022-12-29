@@ -4,8 +4,9 @@ export const GET_CRIPTOS = "GET_CRIPTOS"
 export const GET_CRIPTOS_SUCCESS = "GET_CRIPTOS_SUCCESS"
 
 
-export const actionGetCriptos = () => ({
+export const actionGetCriptos = (limit) => ({
     type: GET_CRIPTOS,
+    limit,
 });
 
 export const actionSetCriptos = (criptos) => ({
