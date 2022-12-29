@@ -1,5 +1,5 @@
 import { StyleSheet, View, SafeAreaView, Linking, Platform } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { backgroundColorNavigator, borderColor, focusedColor, white } from '../../utils/assets/colors'
 import TextUI from '../../components/Text/TextUI'
@@ -7,24 +7,16 @@ import ButtonIcon from '../../components/Buttons/ButtonIcon'
 import Graficos from '../../components/Graficos/Graficos'
 import Loading from '../../components/loaders/Loading'
 import CardCripto from '../../components/Cards/CardCripto'
-import { useDispatch, useSelector } from 'react-redux'
-import { actionGetCriptosHistorico } from '../../business/actions/actionCriptos'
+import useCriptoGraph from '../../customHooks/useCriptos/useCriptoGraph'
 
 const CriptoInformation = ({ route }) => {
+   /* Destructuring the data that is being passed from the previous screen. */
     const data = route?.params?.data
     const { twitterUrl, websiteUrl, id } = data;
-    let historicoCripto = useSelector((state) => state.reducerCripto.historico);
-    const [datas, setDatas] = useState([])
-    const dataGraph = [];
-    const dispatch = useDispatch();
 
-    useLayoutEffect(() => {
-        dispatch(actionGetCriptosHistorico(id))
-        historicoCripto.map((i) => {
-            dataGraph.push(i[1])
-        })
-        setDatas(dataGraph)
-    }, [dispatch]);
+    /* A custom hook that is fetching the data from the API. */
+    const { datas } = useCriptoGraph(id);
+
     return (
         <SafeAreaView style={styles.containerHeader}>
             <TextUI
