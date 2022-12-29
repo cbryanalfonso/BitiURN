@@ -1,21 +1,34 @@
-import { Image, Linking, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Image, Linking, StyleSheet, View } from 'react-native'
+import React, { useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
-import { borderColor } from '../../utils/assets/colors';
+import { borderColor, focusedColor } from '../../utils/assets/colors';
 import TextUI from '../Text/TextUI';
 import ButtonUI from '../Buttons/ButtonUI';
+import Loading from '../loaders/Loading';
 
 
 const CardNews = ({ data, navigation }) => {
-    const { imgURL, title , shareURL} = data;
-   
+    const { imgURL, title, shareURL } = data;
+    const [loadingImg, setLoadingImg] = useState(true)
+
     return (
         <View style={styles.container}>
             <Image
                 source={{ uri: imgURL }}
                 style={styles.img}
                 resizeMode={'cover'}
+                onLoadStart={() => {
+                    setLoadingImg(true)
+                }}
+                onLoadEnd={() => setLoadingImg(false)}
             />
+          {loadingImg &&  <View style={styles.loadingImg}>
+                <Loading
+                    color={focusedColor}
+                    heigh={hp(20)}
+                    width={"100%"}
+                />
+            </View>}
             <View style={styles.containerBody}>
                 <TextUI
                     text={title}
@@ -25,7 +38,7 @@ const CardNews = ({ data, navigation }) => {
                 <ButtonUI
                     style={'buttonNav'}
                     txt={'Ver la noticia'}
-                    onPress={()=> Linking.openURL(shareURL)}
+                    onPress={() => Linking.openURL(shareURL)}
                 />
             </View>
         </View>
@@ -54,5 +67,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingVertical: wp(1)
+    },
+    loadingImg: {
+        width: "100%",
+        height: hp(19),
+        justifyContent: 'center',
+        alignItems: 'center',
+        // position: 'absolute'
     }
 })
