@@ -1,4 +1,4 @@
-# RickAndMortyAPI
+# BitiURN APP
 BitiURN APP
 
 <H1> Información Aplicación móvil </H1>
