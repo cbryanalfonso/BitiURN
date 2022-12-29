@@ -7,7 +7,7 @@ BitiURN APP
 </p>
 
 ## Uso de esta aplicación
-Para el uso de esta aplicación se necesita clonar el repositorio e instalar los paquetes mediante npm en la carpeta clonada.
+Para el uso de esta aplicación se necesita clonar el repositorio e instalar los paquetes mediante yarn.
 ###### Clonar el repositorio
 ```
 git clone https://github.com/cbryanalfonso/BitiURN.git
