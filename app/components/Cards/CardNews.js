@@ -22,13 +22,15 @@ const CardNews = ({ data, navigation }) => {
                 }}
                 onLoadEnd={() => setLoadingImg(false)}
             />
-          {loadingImg &&  <View style={styles.loadingImg}>
-                <Loading
+          {loadingImg &&  
+               <View style={styles.loadingImg}>
+                    <Loading
                     color={focusedColor}
-                    heigh={hp(20)}
+                    heigh={hp(10)}
                     width={"100%"}
                 />
-            </View>}
+               </View>
+            }
             <View style={styles.containerBody}>
                 <TextUI
                     text={title}
@@ -69,10 +71,10 @@ const styles = StyleSheet.create({
         paddingVertical: wp(1)
     },
     loadingImg: {
+        position: 'absolute',
         width: "100%",
-        // height: hp(19),
+        height: hp(19),
         justifyContent: 'center',
         alignItems: 'center',
-        // position: 'absolute'
     }
 })
