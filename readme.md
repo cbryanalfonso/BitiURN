@@ -41,9 +41,9 @@ yarn ios
  yarn ios14Max  // correrá en el simulador iphone 14 Pro Max.
 ```
 ```
- yarn iosSE  // correrá en el simulador de iphone SE.
-```
-```
  yarn iosPro // correrá en el simulador de iphone 14 Pro
+```
+```
+ yarn iosSE  // correrá en el simulador de iphone SE.
 ```
 
