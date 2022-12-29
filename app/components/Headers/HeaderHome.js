@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: white,
         width: wp(90),
-        top: (Platform.OS === 'ios' && windowHeight > 800 ) ? wp(20) : windowHeight < 750 ? wp(11): wp(7),
+        top: (Platform.OS === 'ios' && windowHeight > 800 ) ? wp(20) : windowHeight < 750 ? wp(11): wp(6),
         borderWidth: 1,
         borderColor: borderColor,
         alignItems: 'center',
