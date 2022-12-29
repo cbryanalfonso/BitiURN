@@ -16,6 +16,7 @@ const getHistoricoCriptos = (id) => {
         });
 
 }
+/* A generator function that is called by the saga middleware. */
 function* sagaGetCripto({ limit } = values) {
     try {
         const criptos = yield call(listCripto, limit);
@@ -24,10 +25,10 @@ function* sagaGetCripto({ limit } = values) {
         console.log(error);
     }
 }
+/* A generator function that is called by the saga middleware. */
 function* sagaGetCriptoHistorico({ id } = values) {
     try {
         const historico = yield call(getHistoricoCriptos, id);
-        console.log('again?',historico);
         yield put(ActionCripto.actionSetCriptosHistorico(historico));
     } catch (error) {
         console.log(error);
@@ -35,6 +36,7 @@ function* sagaGetCriptoHistorico({ id } = values) {
 }
 
 
+/* This is the main saga that is called by the saga middleware. */
 export default function* SagasCriptos() {
     yield takeLatest(ActionCripto.GET_CRIPTOS, sagaGetCripto);
     yield takeLatest(ActionCripto.GET_CRIPTOS_HISTORY_REQUEST, sagaGetCriptoHistorico);

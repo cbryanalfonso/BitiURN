@@ -9,7 +9,16 @@ import Loading from '../../components/loaders/Loading'
 
 const HomeNews = ({ navigation }) => {
     let dataNews = useSelector((state) => state.reducerNews.news);
+    /**
+     * The keyExtractor function takes in an item and an index and returns a string of the index
+     * @param item - The item in the data array that is being rendered.
+     * @param index - The index of the item in the data array.
+     */
     const keyExtractor = (item, index) => index.toString();
+    /**
+     * It takes an object with an item and index property, and returns a CardNews component with the
+     * data and navigation props
+     */
     const renderItem = ({ item, index }) => <CardNews data={item} navigation={navigation} />
    
     return (

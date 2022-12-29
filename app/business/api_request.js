@@ -1,6 +1,11 @@
 import axios from "axios";
 
 
+/**
+ * It makes a request to the CoinStats API, and returns a promise that resolves to the response data
+ * @param limit - The number of results to return.
+ * @returns A promise
+ */
 export const listCripto = (limit) => {
   const config = {
     method: 'get',
@@ -21,6 +26,10 @@ export const listCripto = (limit) => {
   });
 }
 
+/**
+ * It makes a request to the CoinStats API and returns the response
+ * @param id - The id of the coin you want to get the history for.
+ */
 export const getHistorico = (id) => {
 
   const config = {
@@ -43,6 +52,10 @@ export const getHistorico = (id) => {
 
 }
 
+/**
+ * It makes a GET request to the CoinStats API and returns the latest news
+ * @returns An array of news objects.
+ */
 export const getNews = () => {
 
   let config = {

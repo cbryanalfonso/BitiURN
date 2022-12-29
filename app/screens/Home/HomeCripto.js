@@ -11,20 +11,33 @@ import { actionGetNews } from '../../business/actions/actionNews'
 import useCriptos from '../../customHooks/useCriptos/useCriptos'
 export default function HomeCripto({ navigation }) {
     let dataCripto = useSelector((state) => state.reducerCripto.info);
+    const { isLoading, handleLoadMore } = useCriptos();
+    /**
+     * The keyExtractor function takes in an item and an index and returns a string of the index
+     * @param item - The item in the data array that is being rendered.
+     * @param index - The index of the item in the data array.
+     */
     const keyExtractor = (item, index) => index.toString();
+    /**
+     * It takes an object with an item and index property, and returns a CardCripto component with the
+     * data and navigation props
+     */
     const renderItem = ({ item, index }) => <CardCripto data={item} navigation={navigation} />
-    
-    const {isLoading, handleLoadMore} = useCriptos();
 
+
+    /**
+     * The function returns a loading component if the isLoading state is true, else it returns null
+     * @returns A function that returns a component.
+     */
     const renderFooter = ({ item }) => {
         return (
             <>
                 {isLoading ? (
-                   <Loading
-                   color={focusedColor}
-                   heigh={hp(20)}
-                   width={"100%"}
-               />
+                    <Loading
+                        color={focusedColor}
+                        heigh={hp(20)}
+                        width={"100%"}
+                    />
                 ) : null}
             </>
         )

@@ -4,6 +4,12 @@ const stateUsuario = {
   news: []
 }
 
+/**
+ * It takes the current state and an action, and returns the next state
+ * @param [state] - The current state of the store.
+ * @param action - The action object that was dispatched.
+ * @returns The state of the news
+ */
 export const reducerNews = (state = stateUsuario, action) => {
   switch (action.type) {
     case GET_NEWS_REQUEST:

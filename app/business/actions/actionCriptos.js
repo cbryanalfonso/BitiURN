@@ -4,11 +4,19 @@ export const GET_CRIPTOS = "GET_CRIPTOS"
 export const GET_CRIPTOS_SUCCESS = "GET_CRIPTOS_SUCCESS"
 
 
+/**
+ * It returns an object with a type property and a limit property
+ * @param limit - The number of criptos to fetch.
+ */
 export const actionGetCriptos = (limit) => ({
     type: GET_CRIPTOS,
     limit,
 });
 
+/**
+ * It returns an object with a type property and a criptos property
+ * @param criptos - The array of criptos that we want to store in our Redux store.
+ */
 export const actionSetCriptos = (criptos) => ({
     type: GET_CRIPTOS_SUCCESS,
     criptos,
