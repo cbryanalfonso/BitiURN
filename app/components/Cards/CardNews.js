@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     },
     loadingImg: {
         width: "100%",
-        height: hp(19),
+        // height: hp(19),
         justifyContent: 'center',
         alignItems: 'center',
         // position: 'absolute'
