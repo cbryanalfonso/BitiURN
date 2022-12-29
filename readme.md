@@ -10,18 +10,40 @@ BitiURN APP
 Para el uso de esta aplicación se necesita clonar el repositorio e instalar los paquetes mediante npm en la carpeta clonada.
 ###### Clonar el repositorio
 ```
-git clone https://github.com/cbryanalfonso/RickAndMortyAPI.git
+git clone https://github.com/cbryanalfonso/BitiURN.git
 ```
 ###### Instalar los paquetes
 ```
-npm install
+yarn install
 ```
+```
+cd ios && pod install && cd ..
+```
+###### Iniciar la aplicación
+
+```
+yarn start
+```
+
 ###### Compilar la aplicación en un dispositivo android
 
 ```
-react-native run-android
+yarn android
 ```
-### Ejemplo de funcionamiento de aplicación
-![Alt Text](https://github.com/cbryanalfonso/RickAndMortyAPI/blob/master/ejemplo/ejemplo.gif)
+###### Compilar la aplicación en un dispositivo ios
 
-###### nota: Falta arreglar errores con flatlist
+```
+yarn ios
+```
+###### Se pueden usar los siguientes script para compilar la aplicación en un simulador ios.
+
+```
+ yarn ios14Max  // correrá en el simulador iphone 14 Pro Max.
+```
+```
+ yarn iosSE  // correrá en el simulador de iphone SE.
+```
+```
+ yarn iosPro // correrá en el simulador de iphone 14 Pro
+```
+
